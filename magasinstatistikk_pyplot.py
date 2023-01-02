@@ -93,7 +93,6 @@ def filled_plot(magasin, omrnr: int):
     DF["min_values"] = pd.Series(min_values)
     DF["y_values"] = pd.Series(y_values)
     DF["week"] = range(1, 53)
-    print(DF)
 
     fig = go.Figure()
 
@@ -106,6 +105,14 @@ def filled_plot(magasin, omrnr: int):
     # plot y_values
     fig.add_trace(go.Scatter(x=DF["week"], y=DF["y_values"], mode="lines", name=f"Filling Capacity",
                              line=dict(color="black")))
+
+    # update_layout
+    fig.update_layout(legend=dict(title=None, orientation="h", y=1, yanchor="bottom", x=0.5, xanchor="center"),
+                      title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway", y=1),
+                      hovermode="x unified",
+                      hoverlabel=dict(namelength=-1))
+    fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 1])
+    fig.update_xaxes(title=dict(text="Week"), range=[1, 52])
     return fig
 
 def load_magasin(url):

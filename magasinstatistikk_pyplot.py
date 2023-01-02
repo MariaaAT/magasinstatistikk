@@ -41,7 +41,11 @@ def filling_capacity(magasin, omrnr: int, year: str):
     y2 = territory_EL['fyllingsgrad']
     y4 = territory_EL['SMA5']
 
-    fig = px.line(x=x1, y=[y2, y4], labels={"y": f'Lake Filling Capacity in Territory_{omrnr}', "x": "Date"})
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x1, y=y2, mode="lines", name="Filling Capacity in EL Region"))
+    fig.add_trace(go.Scatter(x=x1, y=y4, mode="lines", name="SMA in VASS Region"))
+
+    # link for colours: https://community.plotly.com/t/plotly-colours-list/11730/3
 
     if omrnr in (1, 2, 3):  # VASS territory does not exist in regions 4 and 5
         territory_VASS = territory[territory["omrType"] == "VASS"]
@@ -50,9 +54,20 @@ def filling_capacity(magasin, omrnr: int, year: str):
         y1 = territory_VASS['fyllingsgrad']
         y3 = territory_VASS['SMA5']
 
-        fig = px.line(x=x1, y=[y2, y4, y1, y3], labels={"y": f'Lake Filling Capacity in Territory_{omrnr}', "x": "Date"})
+        fig.add_trace(go.Scatter(x=x1, y=y1, mode="lines", name="Filling Capacity in VASS Region"))
+        fig.add_trace(go.Scatter(x=x1, y=y3, mode="lines", name="SMA in VASS Region"))
+        #newnames = {"fyllingsgrad": "Filling Capacity in VASS Region", "SMA5": "SMA in VASS Region", "x1": "Date"}
+        #fig.for_each_trace(lambda t: t.update(name=newnames[t.name], legendgroup=newnames[t.name]))
 
-    fig.show()
+    fig.update_layout(legend=dict(title=None, orientation="h", y=0.9, yanchor="bottom", x=0.5, xanchor="center"),
+                      title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway since {year}", y=1),
+                      hovermode="x unified",
+                      hoverlabel=dict(namelength=-1))
+    fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 1.2])
+    fig.update_xaxes(title=dict(text="Date"))
+
+    # fig.show() -> This opens a new tab on Google
+    return fig
 
 def load_magasin(url):
     parameters = {}
@@ -67,6 +82,6 @@ st.write('You selected region: ', f"{omrnr} - {region_to_name(omrnr)} Norway")
 magasin = load_magasin("https://biapi.nve.no/magasinstatistikk/api/Magasinstatistikk/HentOffentligData")
 
 try:
-    filling_capacity(magasin, omrnr, "2015")
+    st.write(filling_capacity(magasin, omrnr, "2015"))
 except:
     print(traceback.format_exc())

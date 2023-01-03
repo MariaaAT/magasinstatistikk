@@ -67,7 +67,6 @@ def filling_capacity(magasin, omrnr: int, year: str):
     # fig.show() -> This opens a new tab on Google
     return fig
 
-
 def filled_plot(magasin, omrnr: int):
     df = pd.DataFrame(magasin, index=range(len(magasin)))  # DF created
     df['dato_Id'] = pd.to_datetime(df['dato_Id'])  # Convert dates into datetime dtype
@@ -80,14 +79,15 @@ def filled_plot(magasin, omrnr: int):
     min_values = []
     for n in range(1, 53):
         week_n = territory_EL_week[territory_EL_week["iso_uke"] == n]
-        territory_EL_max = week_n['fyllingsgrad'].max()
-        territory_EL_min = week_n['fyllingsgrad'].min()
+        territory_EL_max = round((week_n['fyllingsgrad'].max()) * 100)
+        territory_EL_min = round((week_n['fyllingsgrad'].min()) * 100)
         max_values.append(territory_EL_max)
         min_values.append(territory_EL_min)
 
     y_values = territory_EL.sort_values("dato_Id")
     y_values = y_values.tail(53)
     y_values_capacity = list(y_values["fyllingsgrad"])
+    y_values_capacity = [round(value * 100) for value in y_values_capacity]
     y_values_week = list(y_values["iso_uke"])
     y_values_year = list(y_values["iso_aar"])
 
@@ -108,20 +108,15 @@ def filled_plot(magasin, omrnr: int):
     fig.add_trace(go.Scatter(x=DF["week"], y=DF["min_values"], mode="lines", name="Historisk min",
                              line=dict(color="lightskyblue"), fill='tonextx', fillcolor="lightskyblue"))  # tonextx up
     # plot y_values
-    customdata = [DF["uke"], DF["aar"], DF["max_values"], DF["min_values"]]
     fig.add_trace(go.Scatter(x=DF["week"], y=DF["y_values_capacity"], mode="lines", name="Filling Capacity",
-                             line=dict(color="black"),
-                             hovertemplate=f"WEEK: {customdata[0]}, {customdata[1]}:<br>" +
-                                           "<b>Filling Capacity: %{y}<b><br>" +
-                                           f"Historisk max: {customdata[2]}<br>" + f"Historisk min: {customdata[3]}",
-                             hoverlabel=dict(namelength=-1)))
+                             line=dict(color="black")))
 
     # update_layout
-    fig.update_layout(title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway", y=1), showlegend=False)
-    fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 1])
+    fig.update_layout(title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway", y=1),
+                      hovermode="x unified", hoverlabel=dict(namelength=-1), showlegend=False)
+    fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 100])
     fig.update_xaxes(title=dict(text="Week"), range=[1, 52])
     return fig
-
 
 def load_magasin(url):
     parameters = {}

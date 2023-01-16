@@ -56,18 +56,19 @@ def price_plot(omrnr: int, day_delta: int = 0, mva: bool = False):
     df['time_start'] = pd.to_datetime(df['time_start'])
     df['time_end'] = pd.to_datetime(df['time_end'])
 
+    df["start"] = df['time_start'].dt.strftime('%H:%M')
+    df["until"] = df['time_end'].dt.strftime('%H:%M')
+
+    mva_factor = 1.25 if mva and omrnr != 4 else 1
+    nettleie = 32.7
+    df["ore_per_kWh"] = df['NOK_per_kWh'] * 100 * mva_factor + nettleie
+
     # Figure without taxes
     fig = go.Figure()
 
-    if mva:
-        mva_factor = 1.25 if omrnr != 4 else 1
-        nettleie = 32.7
-        y = round(df["NOK_per_kWh"] * 100 * mva_factor + nettleie, ndigits=2)
-        max_price = round(df["NOK_per_kWh"].max() * 100 * mva_factor + nettleie, ndigits=2)
 
-    else:
-        y = round(df["NOK_per_kWh"] * 100, ndigits=2)
-        max_price = round(df["NOK_per_kWh"].max() * 100, ndigits=2)
+    y = round(df["ore_per_kWh"] , ndigits=2)
+    max_price = round(df["ore_per_kWh"].max(), ndigits=2)
 
     fig.add_trace(go.Scatter(x=df["time_start"], y=y, name="", line=dict(shape='hv'), hovertemplate="%{y} Øre"))
     fig.update_yaxes(title=dict(text="Øre"), range=[0.1, max_price + 50])
@@ -77,7 +78,7 @@ def price_plot(omrnr: int, day_delta: int = 0, mva: bool = False):
         text=f"Electricity prices {'(inkludert avgifter og mva)' if mva else '(exkludert avgifter og mva)'}"),
                       hovermode="x unified", hoverlabel=dict(namelength=-1), showlegend=False, xaxis_tickformat='%H:%M')
 
-    return fig
+    return df[["start", "until", "ore_per_kWh"]], fig
 
 
 omrnr = st.selectbox('Select a region', (1, 2, 3, 4, 5), format_func=region_to_name)
@@ -85,6 +86,8 @@ day_delta = st.selectbox("Select a day", (0, 1), format_func=day_delta_to_name)
 mva = st.checkbox('Inkludert avgifter og mva')
 
 try:
-    st.write(price_plot(omrnr, day_delta, mva))
+    df, fig = price_plot(omrnr, day_delta, mva)
+    st.write(fig)
+    st.dataframe(df)
 except:
     print(traceback.format_exc())

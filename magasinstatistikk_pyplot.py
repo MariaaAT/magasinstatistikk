@@ -103,19 +103,20 @@ def filled_plot(magasin, omrnr: int):
 
     # plot max_values
     fig.add_trace(go.Scatter(x=DF["week"], y=DF["max_values"], mode="lines", name="Historisk max",
-                             line=dict(color="lightskyblue"), ))  # tonexty down
+                             line=dict(color="lightskyblue"), hovertemplate="%{y} %"))  # tonexty down
     # plot min_values
     fig.add_trace(go.Scatter(x=DF["week"], y=DF["min_values"], mode="lines", name="Historisk min",
-                             line=dict(color="lightskyblue"), fill='tonextx', fillcolor="lightskyblue"))  # tonextx up
+                             line=dict(color="lightskyblue"), fill='tonextx', fillcolor="lightskyblue",
+                             hovertemplate=" %{y} %"))  # tonextx up
     # plot y_values
     fig.add_trace(go.Scatter(x=DF["week"], y=DF["y_values_capacity"], mode="lines", name="Filling Capacity",
-                             line=dict(color="black")))
+                             line=dict(color="black"), hovertemplate="%{y} %"))
 
     # update_layout
     fig.update_layout(title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway", y=1),
                       hovermode="x unified", hoverlabel=dict(namelength=-1), showlegend=False)
     fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 100])
-    fig.update_xaxes(title=dict(text="Week"), range=[1, 52])
+    fig.update_xaxes(title={"text": "Week"}) #, range=[1, 52])
     return fig
 
 def load_magasin(url):

@@ -1,3 +1,5 @@
+from typing import Union, Optional
+
 import requests
 import json
 from datetime import date, datetime, timedelta
@@ -27,6 +29,13 @@ def dmy(dt):
     year = dt.strftime('%Y')
     return day, month, year
 
+
+def day_delta_to_name(day_delta: int) -> Optional[str]:
+    if day_delta == 0:
+        return "Today"
+    if day_delta == 1:
+        return "Tomorrow"
+    return None
 
 def price_plot(omrnr: int, day_delta: int = 0, mva: bool = False):
     dt = datetime.now()
@@ -72,9 +81,10 @@ def price_plot(omrnr: int, day_delta: int = 0, mva: bool = False):
 
 
 omrnr = st.selectbox('Select a region', (1, 2, 3, 4, 5), format_func=region_to_name)
+day_delta = st.selectbox("Select a day", (0, 1), format_func=day_delta_to_name)
+mva = st.checkbox('Inkludert avgifter og mva')
 
-st.write('You selected region: ', f"{omrnr} - {region_to_name(omrnr)} Norway")
 try:
-    st.write(price_plot(omrnr))
+    st.write(price_plot(omrnr, day_delta, mva))
 except:
     print(traceback.format_exc())

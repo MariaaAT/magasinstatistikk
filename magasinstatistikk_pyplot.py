@@ -79,15 +79,15 @@ def filled_plot(magasin, omrnr: int):
     min_values = []
     for n in range(1, 53):
         week_n = territory_EL_week[territory_EL_week["iso_uke"] == n]
-        territory_EL_max = round((week_n['fyllingsgrad'].max()) * 100)
-        territory_EL_min = round((week_n['fyllingsgrad'].min()) * 100)
+        territory_EL_max = round((week_n['fyllingsgrad'].max()) * 100, ndigits=2)
+        territory_EL_min = round((week_n['fyllingsgrad'].min()) * 100, ndigits=2)
         max_values.append(territory_EL_max)
         min_values.append(territory_EL_min)
 
     y_values = territory_EL.sort_values("dato_Id")
     y_values = y_values.tail(53)
     y_values_capacity = list(y_values["fyllingsgrad"])
-    y_values_capacity = [round(value * 100) for value in y_values_capacity]
+    y_values_capacity = [round(value * 100, ndigits=2) for value in y_values_capacity]
     y_values_week = list(y_values["iso_uke"])
     y_values_year = list(y_values["iso_aar"])
 

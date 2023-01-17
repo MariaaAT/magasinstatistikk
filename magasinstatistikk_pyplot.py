@@ -67,7 +67,8 @@ def filling_capacity(magasin, omrnr: int, year: str):
     # fig.show() -> This opens a new tab on Google
     return fig
 
-def filled_plot(magasin, omrnr: int):
+
+def min_max_plot(magasin, omrnr: int):
     df = pd.DataFrame(magasin, index=range(len(magasin)))  # DF created
     df['dato_Id'] = pd.to_datetime(df['dato_Id'])  # Convert dates into datetime dtype
 
@@ -132,6 +133,6 @@ st.write('You selected region: ', f"{omrnr} - {region_to_name(omrnr)} Norway")
 magasin = load_magasin("https://biapi.nve.no/magasinstatistikk/api/Magasinstatistikk/HentOffentligData")
 
 try:
-    st.write(filled_plot(magasin, omrnr))
+    st.write(filling_capacity(magasin, omrnr, "2015"))
 except:
     print(traceback.format_exc())

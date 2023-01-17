@@ -1,5 +1,4 @@
 # Water and Energy in Norway
-
 ADD A PICTURE/VIDEO SELECTING THE DIFFERENT SELECTBOXES/CHECKBOX AND MOVING THE HOVER LABEL
 **WATER FILLING CAPACITY PLOTS**
 **ELECTRICITY PRICES PLOT**
@@ -24,16 +23,24 @@ $ pip install git+https://github.com/MariaaAT/magasinstatistikk.git
 
 There are two different functions to plotting in `magasinstatistikk_pyplot.py`.
 
-The function `filling_capacity` will plot the water filling capacity from the different regions of Norway over the years, whereas the function `filled_plot` will draw the last year's water filling capacity compared with historical values. 
+The function `filling_capacity` will plot the water filling capacity from the different regions of Norway over the years. 
+
+![water filling capacity of lakes in region 1 since 2015](doc/filling_capacity.png)
+
+The function `min_max_plot` will draw the last 52 weeks water filling capacity compared to its historical counterparts. 
+
+![last year's water filling capacity compared to historical data](doc/filled_plot.png)
 
 ### Electricity Prices
 
 The function `price_plot` is used and can be found in `electricity_prices.py`
 
+![electricity prices plot daily](doc/electricity_prices_plot.png)
+
 ## Lessons learnt
 
 - [x] Data Analysis using Pandas and Jupyter Notebook.
-- [x] Data Visualitation using StreamLit and plotly.
+- [x] Data Visualization using StreamLit and plotly.
 - [x] Transforming data from APIs.
 
 ## Future challenges

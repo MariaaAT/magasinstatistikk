@@ -18,15 +18,33 @@ An API key wasn't required to get the values.
 This runs in any operating system and can be installed via `pip` directly from GitHub.
 
 ```
-$ pip install git+https://github.com/MariaaAT/magasinstatistikk.git
+$ git clone git@github.com:MariaaAT/magasinstatistikk.git
+$ cd magasinstatistikk/
+$ pip install -r requirements.txt
 ```
 
-When installing StreamLit, pyarrow didn't compile. I installed the precompiled version of StreamLit instead. 
+In order to run the project and see the water filling capacity graphs, run the following command:
+
+```
+$ streamlit run src/magasinstatistikk/magasinstatistikk.py
+```
+
+In order to run the project and see the electricity prices graphs, run the following:
+
+```
+$ streamlit run src/magasinstatistikk/electricity_prices.py
+```
+
+When installing StreamLit under OSX, pyarrow didn't compile. I installed the precompiled version of pyarrow instead. 
+
+```
+$ pip install --extra-index-url https://pypi.fury.io/arrow-nightlies --prefer-binary --pre pyarrow
+```
 
 ## For developers
 ### Water Filling Capacity
 
-There are two different functions to plotting in `magasinstatistikk_plotly.py`.
+There are two different functions to plotting in `magasinstatistikk.py`.
 
 The function `filling_capacity` will plot the water filling capacity from the different regions of Norway over the years. 
 

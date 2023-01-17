@@ -1,5 +1,6 @@
-# Water and Energy in Norway
-ADD GIF
+# Water Filling Levels and Electricity Prices in Norway Visualisation using StreamLit, plotly and pandas
+
+![graphs](doc/magasinstatistikk.gif)
 
 ## Project's Overview
 

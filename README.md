@@ -1,11 +1,11 @@
 # Water Filling Levels and Electricity Prices in Norway Visualisation using StreamLit, plotly and pandas
 
-<img src="https://streamlit.io/images/brand/streamlit-logo-secondary-lightmark-lighttext.svg" alt="drawing" width="200"/>
+<img src="https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-lighttext.png" alt="drawing" width="200"/>
 
 Try it out the 
 [filling levels](https://mariaaat-magasinst-srcmagasinstatistikkmagasinstatistikk-uwxy6o.streamlit.app) 
 and 
-[electricity prices]((https://mariaaat-magasins-srcmagasinstatistikkelectricity-prices-gz48px.streamlit.app/)) demos yourself!
+[electricity prices](https://mariaaat-magasins-srcmagasinstatistikkelectricity-prices-gz48px.streamlit.app/) demos yourself!
 
 
 ![graphs](doc/magasinstatistikk.gif)

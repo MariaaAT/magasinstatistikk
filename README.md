@@ -1,41 +1,50 @@
 # Water and Energy in Norway
+
+ADD A PICTURE/VIDEO SELECTING THE DIFFERENT SELECTBOXES/CHECKBOX AND MOVING THE HOVER LABEL
+**WATER FILLING CAPACITY PLOTS**
+**ELECTRICITY PRICES PLOT**
+
 ## Project's Overview
 
-*"Water and energy are linked"* as many authors in different bibliographies affirm. This link is even more "visible" in Norway, where hydropower is the primary energy source in this country (give a value). Therefore, due to my interest in the environmental field and Data Analysis, I created this project, using different Python tools, to show through **interactive plots**:
-  1. The water filling capacity of lakes in the five regions of Norway (i.e., Oslo, Kristiansand, Trondheim, Tromsø and Bergen) over the years; 
-  2. The last year's water filling capacity of lakes compared with historical values;
+*"Water and energy are linked"* as many authors in different bibliographies affirm. This link is even more "visible" in Norway, where hydropower is the primary energy source in this country (give a value). Therefore, due to my interest in the environmental field and Data Analysis I created this project using the Python libraries StreamLit and plotly to visualise **interactive plots** of:
+  1. The water filling capacity of lakes in the five regions of Norway (i.e., Oslo, Kristiansand, Trondheim, Tromsø and Bergen) over the years.
+  2. The last year's water filling capacity of lakes compared with historical values.
   3. Electricity prices from the current and next day. 
   
-## Technologies used
+## Installation
 
-For the select boxes and checkboxes, the Python library **streamlit** was used. For the plotting, the interactive plotting library **plotly** was utilised. Both libraries are open-source Python libraries. To install them, use the following code, respectively:
+This runs in any operatining system and can be installed via `pip` directly from GitHub
+
 ```
-$ pip install streamlit
-$ pip install plotly==5.11.0
+$ pip install git+https://github.com/MariaaAT/magasinstatistikk.git
 ```
 
-### How to use the project -> Examples
+## For developers
+### Water Filling Capactity
 
-**WATER FILLING CAPACITY PLOTS**
+There are two different functions to plotting in `magasinstatistikk_pyplot.py`.
 
----
-Along the code, different functions are used. Depending the graph we want to plot, one or the other should be used:
+The function `filling_capacity` will plot the water filling capacity from the different regions of Norway over the years, whereas the function `filled_plot` will draw the last year's water filling capacity compared with historical values. 
 
-![def filling_capacity](https://user-images.githubusercontent.com/115936415/212917465-a6e51bb3-13ce-46ee-9fa1-1f3c1e73ebfa.png)
+### Electricity Prices
 
-
-If the historical values is the data we want to plot
+The function `price_plot` is used and can be found in `electricity_prices.py`
 
 ## Lessons learnt
+
+- [x] Data Analysis using Pandas and Jupyter Notebook.
+- [x] Data Visualitation using StreamLit and plotly.
+- [x] Transforming data from APIs.
 
 ## Future challenges
 
 *"Perfection is attained by slow degrees; it requires the hand of time."*
                                                                         - *Voltaire*
+
 The following improvements are expected to make:
-  1. Include historical values from electricity prices;
-  2. Combine filling capacity data with electricity prices and search for correlations;
-  3. Observe how climate change has affected, affects and will affect these two studied fields.
+- [ ] Include historical values from electricity prices.
+- [ ] Combine filling capacity data with electricity prices and search for correlations.
+- [ ] Observe how climate change has affected, affects and will affect these two studied fields.
 
 
 

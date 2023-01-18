@@ -12,7 +12,7 @@ and
 
 ## Project's Overview
 
-*"Water and energy are linked"* in ways as many authors in different bibliographies affirm. This link is even more "visible" in Norway, where hydropower is the primary energy source in this country (give a value). Therefore, due to my interest in the environmental field and Data Analysis I created this project using the Python libraries StreamLit and plotly to visualise **interactive plots** of:
+*"Water and energy are linked"* in ways as many authors in different bibliographies affirm. This link is even more "visible" in Norway, where hydropower is the primary energy source in this country (more than 96%). Therefore, due to my interest in the environmental field and Data Analysis I created this project using the Python libraries StreamLit and plotly to visualise **interactive plots** of:
   1. The water filling capacity of lakes in the five regions of Norway (i.e., Oslo, Kristiansand, Trondheim, Tromsø and Bergen) over the years.
   2. The last year's water filling capacity of lakes compared with historical values.
   3. Electricity prices from the current and next day. 

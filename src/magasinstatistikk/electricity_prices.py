@@ -1,9 +1,7 @@
 from typing import Union, Optional
-
 import requests
 import json
 from datetime import date, datetime, timedelta
-import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd

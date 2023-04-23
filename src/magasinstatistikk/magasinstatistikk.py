@@ -78,8 +78,12 @@ def min_max_plot(magasin, omrnr: int):
 
     max_values = []
     min_values = []
-    for n in range(1, 53):
-        week_n = territory_EL_week[territory_EL_week["iso_uke"] == n]
+    # xaxis is now corrected and in line with the real values
+    # by getting the current week value and using modulus (%)
+    current_week = territory_EL_week.sort_values("dato_Id").iloc[-1]["iso_uke"]
+    for n in range(52):
+        week = ((current_week + n) % 52) + 1
+        week_n = territory_EL_week[territory_EL_week["iso_uke"] == week]
         territory_EL_max = round((week_n['fyllingsgrad'].max()) * 100, ndigits=2)
         territory_EL_min = round((week_n['fyllingsgrad'].min()) * 100, ndigits=2)
         max_values.append(territory_EL_max)
@@ -93,6 +97,7 @@ def min_max_plot(magasin, omrnr: int):
     y_values_year = list(y_values["iso_aar"])
 
     # Second DF created
+    # Making duplicates of the data is not always a good idea, rather use the already existing values
     DF = pd.Series(max_values, name="max_values").to_frame()
     DF["min_values"] = pd.Series(min_values)
     DF["y_values_capacity"] = pd.Series(y_values_capacity)
@@ -115,7 +120,9 @@ def min_max_plot(magasin, omrnr: int):
 
     # update_layout
     fig.update_layout(title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway", y=1),
-                      hovermode="x unified", hoverlabel=dict(namelength=-1), showlegend=False)
+                      hovermode="x unified", hoverlabel=dict(namelength=-1), showlegend=False,
+                      xaxis=dict(tickvals=DF["week"], ticktext=y_values_week))
+                    # xaxis dict -> used to correlate the data with the axis
     fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 100])
     fig.update_xaxes(title={"text": "Week"}) #, range=[1, 52])
     return fig

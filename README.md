@@ -81,7 +81,8 @@ The function `price_plot` is used and can be found in `electricity_prices.py`
                                                                         - *Voltaire*
 
 The following improvements are expected to make:
-- [ ] Update hover-label from historical graph.
+- [x] Update hover-label from historical graph.
+- [ ] Replace replicated data by the real values.
 - [ ] Include historical values from electricity prices.
 - [ ] Combine filling capacity data with electricity prices and search for correlations.
 - [ ] Observe how climate change has affected, affects and will affect these two studied fields.

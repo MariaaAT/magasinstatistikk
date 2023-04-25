@@ -42,7 +42,7 @@ def filling_capacity(magasin, omrnr: int, year: str):
     y4 = territory_EL['SMA5']
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=x1, y=y2, mode="lines", name="Filling Capacity in EL Region"))
+    fig.add_trace(go.Scatter(x=x1, y=y2, mode="lines", name="Filling Levels in EL Region"))
     fig.add_trace(go.Scatter(x=x1, y=y4, mode="lines", name="SMA in VASS Region"))
 
     # link for colours: https://community.plotly.com/t/plotly-colours-list/11730/3
@@ -54,14 +54,14 @@ def filling_capacity(magasin, omrnr: int, year: str):
         y1 = territory_VASS['fyllingsgrad']
         y3 = territory_VASS['SMA5']
 
-        fig.add_trace(go.Scatter(x=x1, y=y1, mode="lines", name="Filling Capacity in VASS Region"))
+        fig.add_trace(go.Scatter(x=x1, y=y1, mode="lines", name="Filling Levels in VASS Region"))
         fig.add_trace(go.Scatter(x=x1, y=y3, mode="lines", name="SMA in VASS Region"))
 
     fig.update_layout(legend=dict(title=None, orientation="h", y=0.9, yanchor="bottom", x=0.5, xanchor="center"),
-                      title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway since {year}", y=1),
+                      title=dict(text=f"Reservoir Filling Levels in {region_to_name(omrnr)} Norway since {year}", y=1),
                       hovermode="x unified",
                       hoverlabel=dict(namelength=-1))
-    fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 1.2])
+    fig.update_yaxes(title=dict(text=f'Reservoir Filling Levels in Territory_{omrnr}'), range=[0, 1.2])
     fig.update_xaxes(title=dict(text="Date"))
 
     # fig.show() -> This opens a new tab on Google
@@ -115,15 +115,15 @@ def min_max_plot(magasin, omrnr: int):
                              line=dict(color="lightskyblue"), fill='tonextx', fillcolor="lightskyblue",
                              hovertemplate=" %{y} %"))  # tonextx up
     # plot y_values
-    fig.add_trace(go.Scatter(x=DF["week"], y=DF["y_values_capacity"], mode="lines", name="Filling Capacity",
+    fig.add_trace(go.Scatter(x=DF["week"], y=DF["y_values_capacity"], mode="lines", name="Filling Levels",
                              line=dict(color="black"), hovertemplate="%{y} %"))
 
     # update_layout
-    fig.update_layout(title=dict(text=f"Lake Filling Capacity in {region_to_name(omrnr)} Norway", y=1),
+    fig.update_layout(title=dict(text=f"Reservoir Filling Levels in {region_to_name(omrnr)} Norway", y=1),
                       hovermode="x unified", hoverlabel=dict(namelength=-1), showlegend=False,
                       xaxis=dict(tickvals=DF["week"], ticktext=y_values_week))
                     # xaxis dict -> used to correlate the data with the axis
-    fig.update_yaxes(title=dict(text=f'Lake Filling Capacity in Territory_{omrnr}'), range=[0, 100])
+    fig.update_yaxes(title=dict(text=f'Reservoir Filling Levels in Territory_{omrnr}'), range=[0, 100])
     fig.update_xaxes(title={"text": "Week"}) #, range=[1, 52])
     return fig
 
